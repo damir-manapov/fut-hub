@@ -38,31 +38,37 @@ enum ERepositoryRoutes {
   Delete = 'delete',
 }
 
-enum EAgentClientRoutes {
-  SearchTickets = 'search-tickets',
-  BuyTicket = 'buy-ticket',
-}
+// enum EAgentClientRoutes {
+//   SearchTickets = 'search-tickets',
+//   BuyTicket = 'buy-ticket',
+// }
 
 enum EEntityName {
-  Accounts = 'accounts',
-  Agents = 'agents',
-  AgenciesCommissions = 'agencies-commissions',
-  Airlines = 'airlines',
-  Airports = 'airports',
-  Cities = 'cities',
-  Classes = 'classes',
-  Clusters = 'clusters',
-  FareBases = 'fare-bases',
-  Flights = 'flights',
-  Passengers = 'passengers',
-  PassengersClusters = 'passengers-clusters',
-  PersonalTariffs = 'personal-tariffs',
+  Childrens = 'childrens',
+  Couches = 'couches',
+  Parents = 'parents',
+  Teams = 'teams',
+  ProfessionalClubs = 'professional-clubs',
+  Clubs = 'clubs',
+  Trainings = 'trainings',
   Schedule = 'schedule',
-  SweetcaseCommissions = 'sweetcase-commissions',
-  TicketTransactions = 'ticket-transactions',
-  Tickets = 'tickets',
-  TransferTransactions = 'transfer-transactions',
-  Users = 'users',
+  Roles = 'roles',
+  Goals = 'goals',
+  Games = 'games',
+  ChildGameRoles = 'child-game-roles',
+  Capabilities = 'capabilities',
+  ChildRoles = 'child-roles',
+  ChildTrainings = 'child-trainings',
+  ChildGames = 'child-games',
+  ChildTeams = 'child-teams',
+  ParentChilds = 'parent-childs',
+  ChildClubs = 'child-clubs',
+  ChildCapabilities = 'child-capabilities',
+  GraduateClubs = 'graduate-clubs',
+  ProfessionalCouchs = 'professional-couchs',
+  GraduateProfessionals = 'graduate-professionals',
+  Payments = 'payments',
+  Images = 'images',
 }
 
 export {
@@ -71,5 +77,5 @@ export {
   TWithPouchMeta,
   EEntityName,
   ERepositoryRoutes,
-  EAgentClientRoutes,
+  // EAgentClientRoutes,
 };

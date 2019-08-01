@@ -1,5 +1,5 @@
-import { ERepositoryRoutes, EAgentClientRoutes } from './types';
-
+import { ERepositoryRoutes } from './types';
+// EAgentClientRoutes
 /**
  * Возвращает URL использующийся для обработки запросов репозиториев, как
  * на клиентской, так и на серверной частях.
@@ -14,13 +14,13 @@ export function getRepositoryMethodRoute(
   return `/${entityName}/${method}`;
 }
 
-/**
- * Возвращает маршруты для обработки запросов клиента агентов.
- * @param {EAgentClientRoutes} method
- * @returns {string}
- */
-export function getAgentClientMethodRoute(
-  method: EAgentClientRoutes,
-) {
-  return `/agent-client/${method}`;
-}
+// /**
+//  * Возвращает маршруты для обработки запросов клиента агентов.
+//  * @param {EAgentClientRoutes} method
+//  * @returns {string}
+//  */
+// export function getAgentClientMethodRoute(
+//   method: EAgentClientRoutes,
+// ) {
+//   return `/agent-client/${method}`;
+// }

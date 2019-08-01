@@ -1,168 +1,246 @@
 import { IBaseSchema } from './base-schema';
 
-export enum EPassengerType {
-  International = 'international',
-  LocalRussian = 'local_russian',
-  LocalBelarus = 'local_belarus',
-}
+// export enum EPassengerType {
+//   International = 'international',
+//   LocalRussian = 'local_russian',
+//   LocalBelarus = 'local_belarus',
+// }
 
-export enum ETicketType {
-  GDS = 'GDS',
-  Sweet = 'Sweet',
-}
+// export enum ETicketType {
+//   GDS = 'GDS',
+//   Sweet = 'Sweet',
+// }
 
-export enum EPaymentMethod {
-  Card = 'card',
-  Cash = 'cash',
-  Split = 'split',
-}
-
-/**
- * Агенство
- */
-export interface IAgent extends IBaseSchema {
-  name: string;
-}
+// export enum EPaymentMethod {
+//   Card = 'card',
+//   Cash = 'cash',
+//   Split = 'split',
+// }
 
 /**
- * Аэропорт
+ * Карточка ребенка
  */
-export interface IAirport extends IBaseSchema {
-  name: string;
-  cityId: ICity['id'];
-}
-
-/**
- * Аккаунт
- */
-export interface IAccount extends IBaseSchema {
-  memo: string;
-}
-
-/**
- * Авиалиния
- */
-export interface IAirline extends IBaseSchema {
-  name: string;
-}
-
-/**
- * Класс
- */
-export interface IClass extends IBaseSchema {
-  name: string;
-}
-
-/**
- *
- */
-export interface IFareBase extends IBaseSchema {
-  classId: IClass['id'];
-  flightId: IFlight['id'];
-  isPublic: boolean;
-  price: number;
-  amount: number;
-}
-
-/**
- * Полет
- */
-export interface IFlight extends IBaseSchema {
-  departureAirportId: IAirport['id'];
-  destinationAirportId: IAirport['id'];
-  duration: number;
-  airlineId: IAirline['id'];
-}
-
-/**
- * Пассажир
- */
-export interface IPassenger extends IBaseSchema {
-  type: EPassengerType;
-  passportID: string;
+export interface IChildren extends IBaseSchema {
   firstName: string;
   lastName: string;
   patronymic: string;
   birthDate: string;
+  height: number;
+  weight: number;
+  averagePhysicalTraining: number;
+  medicalNote: boolean;
+  parentsPhone: string;
+  parentFirstName: string;
+  parentPatronymic: string;
+  imageId: IImage['id'];
 }
 
 /**
- * Персональный тариф
+ * Карточка тренера
  */
-export interface IPersonalTariff extends IBaseSchema {
-  clusterId: ICluster['id'];
-  fareBaseId: IFareBase['id'];
+export interface ICouch extends IBaseSchema {
+  firstName: string;
+  lastName: string;
+  patronymic: string;
+  age: number;
+  experience: number;
+  education: string;
+  licences: string;
+  regalia: string;
+  reviews: string;
+  studentsAge: number;
+  contact: string;
+  imageId: IImage['id'];
 }
 
-export interface ICluster extends IBaseSchema {
-  name: string;
+/**
+ * Родители
+ */
+export interface IParent extends IBaseSchema {
+  parentName: string;
+  parentPatronymic: string;
+  phone: string;
 }
 
-export interface IPassengersCluster extends IBaseSchema {
-  passengerId: IPassenger['id'];
-  clusterId: ICluster['id'];
+/**
+ * Карточка команды
+ */
+export interface ITeam extends IBaseSchema {
+  couchId: ICouch['id'];
+  imageId: IImage['id'];
 }
 
+/**
+ * Профессиональные клубы
+ */
+export interface IProfessionalClub extends IBaseSchema {
+}
+
+/**
+ * Спортивные секции
+ */
+export interface IClub extends IBaseSchema {
+  clubName: string;
+  imageId: IImage['id'];
+}
+
+/**
+ * Занятия
+ */
+export interface ITraining extends IBaseSchema {
+  teamId: ITeam['id'];
+  couchId: ICouch['id'];
+  date: string;
+  canceled: boolean;
+}
+
+/**
+ * Расписание
+ */
 export interface ISchedule extends IBaseSchema {
-  departureDate: string;
-  flightId: IFlight['id'];
-}
-
-export interface ICity extends IBaseSchema {
-  name: string;
-  abbreviation: string;
-}
-
-export interface ISweetcaseCommision extends IBaseSchema {
-  percent: number;
-  isActiveAfter: string;
-}
-
-export interface IAgencyCommission extends IBaseSchema {
-  percent: number;
-  isActiveAfter: string;
+  trainings: number;
+  games: number;
+  personalTrainings: number;
+  getTogether: number;
 }
 
 /**
- * Транзакции билетов
+ * Позиции
  */
-export interface ITicketTransaction extends IBaseSchema {
-  airlineId: IAirline['id'];
-  agencyId: IAgent['id'];
-  price: number;
-  departureAirportId: IAirport['id'];
-  destinationAirportId: IAirport['id'];
-  departureDate: string;
-  signature: string;
+export interface IRole extends IBaseSchema {
+  roleName: string;
 }
 
 /**
- *
+ * Голы
  */
-export interface ITransferTransaction extends IBaseSchema {
-  fromAccountId: IAccount['id'];
-  toAccountId: IAccount['id'];
-  amount: number;
-  signature: string;
+export interface IGoal extends IBaseSchema {
+  childId: IChildren['id'];
+  gameId: IGame['id'];
+  autoGoal: boolean;
+  second: number;
 }
 
 /**
- * Билет
+ * Матчи
  */
-export interface ITicket extends IBaseSchema {
-  flightId: IFlight['id'];
-  departureDate: string;
-  fareBaseId: IFareBase['id'];
-  price: number;
-  passengerId: IPassenger['id'];
-  agencyId: IAgent['id'];
-  ticketTransactionId: ITicketTransaction['id'];
+export interface IGame extends IBaseSchema {
+  team1Id: ITeam['id'];
+  team2Id: ITeam['id'];
 }
 
 /**
- * Пользователь
+ * В какой игре на какой позиции играл ребенок
  */
-export interface IUser extends IBaseSchema {
-  tokens: number;
-  name: string;
+export interface IChildGameRole extends IBaseSchema {
+  childGameId: IChildGame['id'];
+  roleId: IRole['id'];  
+}
+
+/**
+ * Ключевые компетенции
+ */
+export interface ICapability extends IBaseSchema {
+}
+
+/**
+ * Связь позиции и ребенка
+ */
+export interface IChildRole extends IBaseSchema {
+  childId: IChildren['id'];
+  roleId: IRole['id'];
+}
+
+/**
+ * Связь ребенка и занятия
+ */
+export interface IChildTraining extends IBaseSchema {
+  childId: IChildren['id'];
+  trainingId: ITraining['id'];
+  attended: boolean;
+}
+
+/**
+ * Связь ребенка и матча
+ */
+export interface IChildGame extends IBaseSchema {
+  childId: IChildren['id'];
+  gameId: IGame['id'];
+  teamId: ITeam['id'];
+}
+
+/**
+ * Связь ребенка и команды
+ */
+export interface IChildTeam extends IBaseSchema {
+  childId: IChildren['id'];
+  teamId: ITeam['id'];
+}
+
+/**
+ * Связь ребенка и родителя
+ */
+export interface IParentChild extends IBaseSchema {
+  childId: IChildren['id'];
+  parentId: IParent['id'];
+}
+
+/**
+ * Связь секции и ребенка
+ */
+export interface IChildClub extends IBaseSchema {
+  childId: IChildren['id'];
+  clubId: IClub['id'];
+  // у дат вроде string должно быть. Пишу number в соотвествии с таблицей:
+  startDate: number;
+  finishDate: number;
+}
+
+/**
+ * Связь ключевых компетенций и ребенка
+ */
+export interface IChildCapacilities extends IBaseSchema {
+  childId: IChildren['id'];
+  capabilityId: ICapability['id'];
+}
+
+/**
+ * Связь выпускников и клубов
+ */
+export interface IGraduateClub extends IBaseSchema {
+  graduateId: IProfessionalCouch['id'];
+  clubId: IProfessionalClub['id'];
+}
+
+/**
+ * Связь выпускника-про с тренерами
+ */
+export interface IProfessionalCouch extends IBaseSchema {
+  graduateId: IGraduateProfessional['id'];
+  couchId: ICouch['id'];
+}
+
+/**
+ * Выпускники, подписавшие про контракт
+ */
+export interface IGraduateProfessional extends IBaseSchema {
+  firstName: string;
+  lastName: string;
+  patronymic: string;
+}
+
+/**
+ * Онлайн платежи
+ */
+export interface IPayment extends IBaseSchema {
+  monthPass: number;
+  quarterPass: number;
+  annualPass: number;
+}
+
+/**
+ * Изображения
+ */
+export interface IImage extends IBaseSchema {
+  url: string;
 }
